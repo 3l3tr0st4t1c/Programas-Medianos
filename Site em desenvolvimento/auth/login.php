@@ -6,9 +6,9 @@ require_once __DIR__ . '/../config/funcoes.php';
 
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
-    if (!empty($_POST['email']) && !empty($_POST['password'])) {
-        $email = $_POST ['email'];
-        $password = $_POST ['password'];
+    if (!empty($_POST['email_login']) && !empty($_POST['password'])) {
+        $email = $_POST ['email_login'];
+        $password = $_POST ['senha_hash'];
 
         try {
             $stmt = $pdo->prepare("SELECT * FROM Usuario WHERE email_login = :email LIMIT 1");
@@ -17,11 +17,11 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
             if ($user && password_verify($password, $user['PASSWORD'])) {
 
-                $_SESSION['user_id'] = $user['id_usuario'];
+                $_SESSION['user_id'] = $user['cpf'];
                 $_SESSION['user_name'] = $user['nome'];
                 $_SESSION['user_email'] = $user['email_login'];
 
-                registrar_log($pdo, 'INFO', 'Login bem-sucedido', ['user_id' => $user['id_usuario'], 'email' => $email]);
+                registrar_log($pdo, 'INFO', 'Login bem-sucedido', ['user_id' => $user['cpf'], 'email' => $email]);
 
                 header("Location: ../dashboard.php");
                 exit;

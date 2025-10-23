@@ -2,21 +2,23 @@
 // Arquivo de Conexão com o Banco de Dados (usando PDO)
 
 // --- CONFIGURE SEUS DADOS AQUI ---
-$host = 'localhost';
-$db_name = 'teste_login'; // Verifique se 'teste_login' é o nome correto do seu banco de dados
+$host = '127.0.0.1';
+$port = '3307';
+$db_name = 'BancoPub'; // Verifique se 'teste_login' é o nome correto do seu banco de dados
 $user = 'root';
-$pass = ''; // Em XAMPP, a senha do root geralmente é vazia
+$pass = '1234'; // Em XAMPP, a senha do root geralmente é vazia
 $charset = 'utf8mb4';
 // ------------------------------------
 
 // DSN (Data Source Name) - A string de conexão do PDO
-$dsn = "mysql:host=$host;dbname=$db_name;charset=$charset";
+$dsn = "mysql:host=$host;port=$port;dbname=$db_name;charset=$charset";
 
 // Opções do PDO para um melhor tratamento de erros e resultados
 $options = [
     PDO::ATTR_ERRMODE            => PDO::ERRMODE_EXCEPTION,
     PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
     PDO::ATTR_EMULATE_PREPARES   => false,
+    PDO::MYSQL_ATTR_SSL_VERIFY_SERVER_CERT => false,
 ];
 
 try {
